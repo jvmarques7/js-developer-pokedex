@@ -1,17 +1,35 @@
 
 const pokeApi = {}
 
-function convertPokeApiDetailToPokemon(pokeDetail) {
+async function convertPokeApiDetailToPokemon(pokeDetail) {
+
     const pokemon = new Pokemon()
     pokemon.number = pokeDetail.id
     pokemon.name = pokeDetail.name
+    pokemon.height = pokeDetail.height
+    pokemon.weight = pokeDetail.weight
+    pokemon.species = await specie()
+
+    async function specie(){
+        res = await fetch(pokeDetail.species.url)
+            .then((response) => response.json())
+            .catch()
+        final = res.genera[7].genus.toString()
+        return final
+    }
+
+    const abilities = pokeDetail.abilities.map((abilitySlot) => abilitySlot.ability.name)
+    const [ability] = abilities
+
+    pokemon.abilities = abilities
+    pokemon.ability = ability
 
     const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
     const [type] = types
 
     pokemon.types = types
     pokemon.type = type
-
+    
     pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
 
     return pokemon

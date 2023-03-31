@@ -4,7 +4,8 @@
 }
 
 body {
-    background-color: #f6f8fc;
+    background-color: #d40000;
+    display: flex;
 }
 
 .content {
@@ -12,6 +13,10 @@ body {
     height: 100vh;
     padding: 1rem;
     background-color: #fff;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 @media screen and (min-width: 992px) {
